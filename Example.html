@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example</title>
+    <script>
+        window.onload = function () {
+            var counter = 0;                                   // переменная счетчик
+            var intervalHandler;                               // переменная во внешней зоне видимости, т.к. далее в функциях она будет локальной
+
+            function count() {                                 // функция счетчик
+                getId("output").innerHTML = counter;           // в counter вложено внутреннее содержимое елемента с id output
+                counter++
+            }
+
+            getId("startButton").onclick = function () {
+                intervalHandler = setInterval(count, 5);       // в intervalHandler вложен многократный вызов ф-ции count
+            };
+
+            getId("stopButton").onclick = function () {        // остановка счетчика
+                clearInterval(intervalHandler);
+            }
+        };
+
+        function getId(id) {                                   // чтоб не прописывать каждый раз getElementById
+            return document.getElementById(id);
+        }
+    </script>
+</head>
+<body>
+<p id="output">-</p>
+<input id="startButton" type="button" value="Start Button" />
+<input id="stopButton" type="button" value="Stop Button" />
+</body>
+</html>
